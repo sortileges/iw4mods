@@ -1,12 +1,12 @@
 <h1 align="center">[clantags]</h1> 
 <h3 align="center">Pseudo clantag mod for PC MW2 clients</h3>
-<p align="center">(This is a GSC/.MENU mod. This doesn't use the "real" clantag using the usual player's stats table.)</p>
+<p align="center">(This is a GSC/.MENU mod. This doesn't use the "real" clantag using the player's stats table.)</p>
 <br><br><img src="https://i.gyazo.com/ddd22fd42d9dd9a071fd9bf17aac8a82.gif" width="300px" align="right">
 
 
-The clantag needs to be in your name, and the mod will cut the tag and use it as a clantag for you.
+The clantag needs to be in your name. The mod will cut the tag and use it as a clantag for you.
 
-For example, my name `[test]Sass` shows as shown in the gif image.
+For example, my name `[test]Sass` shows as in the gif image.
 
 The mod doesn't limit your clantag's length or characters. The only limitation you'll face is your entire name's length.
 
