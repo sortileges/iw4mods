@@ -8,8 +8,8 @@ The clantag needs to be in your name, and the mod will cut the tag and use it as
 
 For example, my name `[test]Sass` shows as shown in the gif image.
 
-The mod doesn't limit your clantag's length or characters. The only limitation you'll face is your entires name's length.
+The mod doesn't limit your clantag's length or characters. The only limitation you'll face is your entire name's length.
 
-You need to integrate the scripts and .menu files to your own mod if you want this to work. This will not work online, unless the server's mod uses it too. I also didn't bother with playercard splashes, as I don't find it necessary (and maybe because I'm a little lazy too).
+You need to integrate the scripts and the .menu files in your own mod if you want it to work. Clantags will not work online, unless the server's mod uses this mod. I also didn't bother with playercard splashes, as I don't find it necessary (and maybe because I'm a little lazy too).
 
-> NOTE : I didn't test this mod in an online environment. I used it with friends on private matches without any issues, but we didn't test-proof it. Thus I can't guarantee this will work 100% of the time if you decide to host it, although it worked fine for us.
+> NOTE : I didn't test this mod in an online environment. I used it with friends during private matches without any issues, but we didn't proof-test it. Thus I can't guarantee this will work 100% of the time if you decide to host it, although it worked fine for us.
