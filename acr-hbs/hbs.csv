@@ -1,0 +1,16 @@
+material,hud_icon_heartbeat
+xanim,viewmodel_masada_idle
+xanim,viewmodel_masada_reload_empty
+xanim,viewmodel_masada_sprint_in
+xanim,viewmodel_masada_ads_fire
+xanim,viewmodel_masada_sprint_loop
+xanim,viewmodel_masada_first_time_pullout
+xanim,viewmodel_masada_pullout
+xanim,viewmodel_masada_putaway
+xanim,viewmodel_masada_fire
+xanim,viewmodel_masada_reload
+xanim,viewmodel_masada_sprint_out
+xanim,viewmodel_masadahb_close2open
+xanim,viewmodel_masadahb_open2close
+weapon,mp/masada_heartbeat_mp
+weapon,mp/masada_heartbeat_off_mp
