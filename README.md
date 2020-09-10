@@ -10,3 +10,4 @@ Some of them are finished, some of them aren't. The mods are provided as-is.
 |:-----------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------|
 | <a href="https://github.com/sortileges/iw4mods/tree/master/acr-hbs">acr-hbs</a>      | ACR with toggleable Heartbeat Sensor, like the one featured in the **Cliffhanger** campaign mission
 | <a href="https://github.com/sortileges/iw4mods/tree/master/clantags">clantags</a>       | Clantag mod for IW4 clients. This is a GSC/.MENU mod, not an "official" clantag support release
+| <a href="https://github.com/sortileges/iw4mods/tree/master/alpha">alpha</a>       | In-Progress
