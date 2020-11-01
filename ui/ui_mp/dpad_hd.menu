@@ -1,0 +1,111 @@
+{
+    menuDef
+    {
+        name "dpad_hd"
+        rect 0 -16 640 480 4 4
+        visible 1
+        forecolor 1 1 1 1
+        visible when ( ( ( ! ( ui_active( ) ) ) && ( ! ( inkillcam( ) ) ) && ( ! ( dvarbool( "g_hardcore" ) ) ) && ( ! ( flashbanged( ) ) ) && ( ! ( ( weaponname( ) == "killstreak_ac130_mp" ) || ( weaponname( ) == "killstreak_helicopter_minigun_mp" ) || ( weaponname( ) == "killstreak_predator_missile_mp" ) || ( ( weaponname( ) == "ac130_105mm_mp" ) || ( weaponname( ) == "ac130_40mm_mp" ) || ( weaponname( ) == "ac130_25mm_mp" ) ) || ( adsjavelin( ) ) || ( weaponname( ) == "heli_remote_mp" ) || missilecam( ) ) ) && ( !isempjammed( ) ) && ( ! ( dvarint( "scr_gameended" ) ) ) ) && ! ( selecting_location( ) ) && ( ! ( spectatingfree( ) ) ) )
+        
+        // ===================
+        // UNDERBARREL STUFF
+        itemDef
+        {
+            rect -141 -47 25 25 10 10
+            ownerdraw 173
+            visible 1
+            forecolor 1 1 1 1
+            type 8
+            textfont 6
+            textalign 1
+            textalignx -23
+            textaligny -12
+            textscale 0.22
+            textstyle 6
+        }
+        itemDef
+        {
+            rect -144.5 -74 32 32 10 10
+            decoration
+            visible 1
+            forecolor 1 0.9 0.4 1
+            textfont 6
+            textstyle 6
+            textalign 1
+            textaligny 35
+            textscale 0.26
+            visible when ( actionslotusable( 3 ) )
+            exp text (keybinding( "+actionslot 3" ) )
+        }
+        
+        // ===================
+        // NVGs
+        itemDef
+        {
+            rect -122 -47 25 25 10 10
+            ownerdraw 171
+            visible 1
+            forecolor 1 1 1 1
+            type 8
+            textfont 10
+            textscale 0.3333
+            textstyle 3
+        }
+        itemDef
+        {
+            rect -124 -74 32 32 10 10
+            decoration
+            visible 1
+            forecolor 1 0.9 0.4 1
+            textfont 6
+            textstyle 6
+            textalign 1
+            textaligny 35
+            textscale 0.26
+            //visible when ( actionslotusable( 1 ) )
+            exp text ( keybinding( "+actionslot 1" ) )
+        }
+
+        // ===================
+        // KILLSTREAK INDICATOR
+        itemDef
+        {
+            rect -100 -92 32 32 10 10
+            decoration
+            visible 1
+            forecolor 1 0.9 0.4 1
+            textfont 6
+            textalign 2
+            textaligny 35
+            textscale 0.25
+            textstyle 6
+            visible when ( actionslotusable( 4 ) )
+            exp text ( keybinding( "+actionslot 4" ) )
+        }
+        itemDef
+        {
+            rect -60 -80 36 36 10 10
+            ownerdraw 174
+            visible 1
+            forecolor 1 1 1 1
+            type 8
+            textfont 10
+            textalignx -40
+            textscale 0.3333
+            textstyle 3
+        }
+        itemDef
+        {
+            rect -85 -78 32 32 10 10
+            style 3
+            decoration
+            visible 0
+            forecolor 1 0.9 0.4 1
+            background "hud_dpad_arrow_right"
+            textscale 0.55
+            exp forecolor a ( 0.25 + ( sin( milliseconds( ) / 150 ) + 1 ) )
+            exp rect x ( -87 + ( sin( milliseconds( ) / 150 ) + 1 ) )
+            visible when ( actionslotusable( 4 ) )
+        }
+    }
+}

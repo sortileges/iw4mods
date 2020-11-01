@@ -1,0 +1,393 @@
+// this is far from being finished and optimized
+
+#include "ui/menudef.h"
+#define NOT_SPECTATING ( !spectatingClient() )
+#define TEAM_IS_TIED ( team( "score" ) == otherteam( score ) )
+#define TEAM_IS_WINNING ( team( "score" ) > otherteam( score ) )
+#define TEAM_IS_LOSING ( team( "score" ) < otherteam( score ) )
+{
+    menuDef
+    {
+        name "scorebar_hd"
+        rect -20 8 640 480 8 8
+        visible 1
+        forecolor 1 1 1 1
+        visible when ( ( ( ! ( ui_active( ) ) ) && ( ! ( dvarbool( "g_hardcore" ) ) ) && ( ! ( flashbanged( ) ) ) && ( ! ( ( weaponname( ) == "killstreak_ac130_mp" ) || ( weaponname( ) == "killstreak_helicopter_minigun_mp" ) || ( weaponname( ) == "killstreak_predator_missile_mp" ) || ( ( weaponname( ) == "ac130_105mm_mp" ) || ( weaponname( ) == "ac130_40mm_mp" ) || ( weaponname( ) == "ac130_25mm_mp" ) ) || ( adsjavelin( ) ) || ( weaponname( ) == "heli_remote_mp" ) || missilecam( ) ) ) && ( !isempjammed( ) ) && ( ! ( dvarint( "scr_gameended" ) ) ) ) && !inkillcam( ) && ! ( selecting_location( ) ) )  
+
+
+
+        // ===================
+        // TEAM ICONS
+        itemDef
+        {
+            rect 29 -64 48 48 8 10
+            style 3
+            decoration
+            visible 1
+            forecolor 0 0 0 0.7
+            textscale 1
+            visible when ( team( "name" ) == "TEAM_AXIS" || ( team( "name" ) == "TEAM_FREE" && ( localvarstring( "ui_team" ) == "opfor" ) ) )
+            exp material ( dvarstring( "g_TeamIcon_Axis" ) + "" )
+        }
+        itemDef
+        {
+            rect 29 -66 48 48 8 10
+            style 3
+            decoration
+            visible 1
+            forecolor 1 1 1 1
+            textscale 1
+            visible when ( team( "name" ) == "TEAM_AXIS" || ( team( "name" ) == "TEAM_FREE" && ( localvarstring( "ui_team" ) == "opfor" ) ) )
+            exp material ( dvarstring( "g_TeamIcon_Axis" ) + "" )
+        }
+        itemDef
+        {
+            rect 29 -64 48 48 8 10
+            style 3
+            decoration
+            visible 1
+            forecolor 0 0 0 0.7
+            textscale 1
+            visible when ( team( "name" ) == "TEAM_ALLIES" || ( team( "name" ) == "TEAM_FREE" && ( localvarstring( "ui_team" ) == "marines" ) ) )
+            exp material ( dvarstring( "g_TeamIcon_Allies" ) + "" )
+        }
+        itemDef
+        {
+            rect 29 -66 48 48 8 10
+            style 3
+            decoration
+            visible 1
+            forecolor 1 1 1 1
+            textscale 1
+            visible when ( team( "name" ) == "TEAM_ALLIES" || ( team( "name" ) == "TEAM_FREE" && ( localvarstring( "ui_team" ) == "marines" ) ) )
+            exp material ( dvarstring( "g_TeamIcon_Allies" ) + "" )
+        }
+
+
+        // ===================
+        // SCOREBAR BACKGROUND
+        itemDef
+        {
+            rect 68 -38 128 23 8 10
+            decoration
+            visible 1
+            style 3
+            forecolor 0 0 0 1
+            background "hud_scorebar_bottombar_bg"
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) )
+        }
+        itemDef
+        {
+            rect 68 -38 128 23 8 10
+            decoration
+            visible 1
+            style 3
+            forecolor 0 0 0 1
+            background "hud_scorebar_bottombar_bg"
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) )
+        }
+        itemDef
+        {
+            rect 191.45 -38 12 23 8 10
+            decoration
+            visible 1
+            style 3
+            forecolor 0.75 0.75 0.75 1
+            background "hud_scorebar_bottomcap_bg"
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) )
+        }
+        itemDef
+        {
+            rect 191.45 -38 12 23 8 10
+            decoration
+            visible 1
+            style 3
+            forecolor 0.75 0.75 0.75 1
+            background "hud_scorebar_bottomcap_bg"
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) )
+        }
+        itemDef
+        {
+            rect 68 -64 128 23 8 10
+            decoration
+            visible 1
+            style 3
+            forecolor 0 0 0 1
+            background "hud_scorebar_topbar_bg"
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) )
+        }
+        itemDef
+        {
+            rect 68 -64 128 23 8 10
+            decoration
+            visible 1
+            style 3
+            forecolor 0 0 0 1
+            background "hud_scorebar_topbar_bg"
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) )
+        }
+        itemDef
+        {
+            rect 191.45 -64 20 23 8 10
+            decoration
+            visible 1
+            style 3
+            forecolor 0.75 0.75 0.75 1
+            background "hud_scorebar_topcap_bg"
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) )
+        }
+        itemDef
+        {
+            rect 191.45 -64 20 23 8 10
+            decoration
+            visible 1
+            style 3
+            forecolor 0.75 0.75 0.75 1
+            background "hud_scorebar_topcap_bg"
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) )
+        }
+
+        // ===================
+        // SCOREBAR ACTUAL BARS
+        // Topbars are colored depending of the team you're in
+        // They're using default team icons as a reference, so if they're changed (w/ GSC), the bar will be defaulted to white
+        // I'm using team icons instead of team names, since they're USUALLY not modified, unlike team names...
+        // The bottom bar (that indicates the enemy's score) is always black
+        itemDef
+        {
+            rect 82 -59 114.667 23 8 10
+            style 3
+            decoration
+            visible 1
+            forecolor 1 1 1 1
+            background "hud_scorebar_topbar"
+            textscale 1
+            exp rect w ( ( 20 / 1.5 ) + ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 1.5 ) )
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) &&  ( ( team( "name" ) == "TEAM_ALLIES" ) || ( team( "name" ) == "TEAM_FREE" ) ) && ( ! ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_taskforce141") ) && ( ! ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_rangers")) && ( ! (  dvarstring( "g_TeamIcon_Allies" ) == "faction_128_seals") ) )
+        }
+        itemDef
+        {
+            rect 82 -59 114.667 23 8 10
+            style 3
+            decoration
+            visible 1
+            forecolor 1 1 1 1
+            background "hud_scorebar_topbar"
+            textscale 1
+            exp rect w ( ( 20 / 1.5 ) + ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 1.5 ) )
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( ( team( "name" ) == "TEAM_AXIS" ) || ( team( "name" ) == "TEAM_FREE" ) ) &&  && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_arab") ) && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_ussr") ) && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_militia") ) )
+        }
+        itemDef
+        {
+            rect 82 -59 114.667 23 8 10
+            style 3
+            decoration
+            visible 1
+            forecolor 1 1 1 1
+            background "hud_scorebar_topbar"
+            textscale 1
+            exp rect w ( ( 20 / 1.5 ) + ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 1.5 ) )
+            visible when ( dvarstring( "g_gametype" ) == "dm" )
+        }
+        itemDef
+        {
+            rect 82 -59 114.667 23 8 10
+            style 3
+            decoration
+            visible 1
+            forecolor 0.75 0.77 0.4 1
+            background "hud_scorebar_topbar"
+            textscale 1
+            exp rect w ( ( 20 / 1.5 ) + ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 1.5 ) )
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_ALLIES" ) && ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_rangers") )
+        }
+        itemDef
+        {
+            rect 82 -59 114.667 23 8 10
+            style 3
+            decoration
+            visible 1
+            forecolor 0.4 0.485 0.6 1
+            background "hud_scorebar_topbar"
+            textscale 1
+            exp rect w ( ( 20 / 1.5 ) + ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 1.5 ) )
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_ALLIES" ) && ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_taskforce141") )
+        }
+        itemDef
+        {
+            rect 82 -59 114.667 23 8 10
+            style 3
+            decoration
+            visible 1
+            forecolor 0.2 0.2 0.29 1
+            background "hud_scorebar_topbar"
+            textscale 1
+            exp rect w ( ( 20 / 1.5 ) + ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 1.5 ) )
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_ALLIES" ) && ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_seals") )
+        }
+        /* REGULAR OPFORCE COLOR
+        itemDef
+        {
+            rect 82 -59 114.667 23 8 10
+            style 3
+            decoration
+            visible 1
+            forecolor 1 0.9 0.7 1
+            background "hud_scorebar_topbar"
+            textscale 1
+            exp rect w ( ( 20 / 1.5 ) + ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 1.5 ) )
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_AXIS" ) && ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_arab") )
+        }*/
+        itemDef
+        {
+            rect 82 -59 114.667 23 8 10
+            style 3
+            decoration
+            visible 1
+            forecolor 0.6 0.1 0.19 1
+            background "hud_scorebar_topbar"
+            textscale 1
+            exp rect w ( ( 20 / 1.5 ) + ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 1.5 ) )
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_AXIS" ) && ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_arab") )
+        }
+        itemDef
+        {
+            rect 82 -59 114.667 23 8 10
+            style 3
+            decoration
+            visible 1
+            forecolor 0.8 0.2 0.1 1
+            background "hud_scorebar_topbar"
+            textscale 1
+            exp rect w ( ( 20 / 1.5 ) + ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 1.5 ) )
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_AXIS" ) && ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_ussr" || dvarstring( "g_TeamIcon_Axis" ) == "faction_128_militia"  ) )
+        }
+        itemDef
+        {
+            rect -20 -59 12 23 8 10
+            style 3
+            decoration
+            visible 1
+            forecolor 1 1 1 1
+            background "hud_scorebar_topcap"
+            textscale 1
+            exp rect x ( ( ( 122.5 + 19.7 ) / 1.5 ) + ( ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 1.5 ) ) - ( 6 / 1.5 ))
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) )
+        }
+        itemDef
+        {
+            rect 82 -40 114.667 23 8 10
+            style 3
+            decoration
+            visible 1
+            forecolor 0.1 0.1 0.1 1
+            background "hud_scorebar_bottombar"
+            textscale 1
+            exp rect w ( ( ( 20 ) / 1.5 ) + ( ( ( otherteam( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( ( ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) ) * ( scoreatrank( 2 ) ) ) + ( ( ( player( "score" ) ) != ( scoreatrank( 1 ) ) ) * ( scoreatrank( 1 ) ) ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 1.5 ) )
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) )
+        }
+        itemDef
+        {
+            rect -20 -40 12 23 8 10
+            style 3
+            decoration
+            visible 1
+            forecolor 1 1 1 1
+            background "hud_scorebar_bottomcap"
+            textscale 1
+            exp rect x ( ( ( 122.5 + 19.7 ) / 1.5 ) + ( ( ( ( otherteam( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( ( ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) ) * ( scoreatrank( 2 ) ) ) + ( ( ( player( "score" ) ) != ( scoreatrank( 1 ) ) ) * ( scoreatrank( 1 ) ) ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 1.5 ) ) - ( 6 / 1.5 ) )
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) )
+        }
+
+
+        // ===================
+        // SCOREBAR POINTS
+        itemDef
+        {
+            rect 37 -39 0.1 0.1 8 10
+            decoration
+            visible 1
+            forecolor 1 1 1 1
+            textfont 6
+            textscale 0.3
+            textstyle 6
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) )
+            exp rect x ( ( ( 122.5 ) / 1.5 ) + ( ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 3.5 ) ) - ( 6 / 3.5 ) ))
+            exp text ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) )
+        }
+        itemDef
+        {
+            rect 37 -26 0.1 0.1 8 10
+            decoration
+            visible 1
+            forecolor 1 1 1 1
+            textfont 6
+            textalign 0
+            textscale 0.3
+            textstyle 6
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) )
+            exp rect x ( ( ( 122.5 ) / 1.5 ) + ( ( ( ( otherteam( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( ( ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) ) * ( scoreatrank( 2 ) ) ) + ( ( ( player( "score" ) ) != ( scoreatrank( 1 ) ) ) * ( scoreatrank( 1 ) ) ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 3.5 ) ) - ( 6 / 3.5 ) )
+            exp text ( ( ( otherteam( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( ( ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) ) * ( scoreatrank( 2 ) ) ) + ( ( ( player( "score" ) ) != ( scoreatrank( 1 ) ) ) * ( scoreatrank( 1 ) ) ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) )
+        }
+
+
+        // ===================
+        // SCOREBAR STATUS TEXTS
+        itemDef
+        {
+            rect 84 -52 0.1 0.1 8 10
+            decoration
+            visible 0
+            forecolor 1 1 1 1
+            textfont 6
+            textscale 0.265
+            textstyle 6
+            visible when ( ( milliseconds( ) % 30000 ) > 0 && ( milliseconds( ) % 30000 ) < 4000 && ( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 0.5 * 60 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) < 0 || ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 0.5 * 60 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) > 60 ) )
+            exp text ( gametypename( ) )
+        }
+        itemDef
+        {
+            rect 84 -52 0.1 0.1 8 10
+            decoration
+            visible 0
+            forecolor 1 1 1 1
+            textfont 6
+            textscale 0.292
+            textstyle 6
+            text "Winning"
+            visible	when( TEAM_IS_WINNING && ( ( milliseconds( ) % 30000 ) > 4000 && ( milliseconds( ) % 30000 ) < 30000 ) )
+        }
+        itemDef
+        {
+            rect 84 -52 0.666667 0.666667 8 10
+            decoration
+            visible 0
+            forecolor 0.8 0.3 0.2 1
+            textfont 6
+            textscale 0.292
+            textstyle 6
+            text "Losing"
+            visible when( TEAM_IS_LOSING && ( ( milliseconds( ) % 30000 ) > 4000 && ( milliseconds( ) % 30000 ) < 30000 ) )
+        }
+        itemDef
+        {
+            rect 84 -52 0.666667 0.666667 8 10
+            decoration
+            visible 0
+            forecolor 0.8 0.8 0.8 1
+            textfont 6
+            textscale 0.292
+            textstyle 6
+            text "Tied"
+            visible when( TEAM_IS_TIED && ( ( milliseconds( ) % 30000 ) > 4000 && ( milliseconds( ) % 30000 ) < 30000 ) )
+        }
+    }
+}

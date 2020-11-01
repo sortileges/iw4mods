@@ -1,0 +1,356 @@
+    // this is far from being finished and optimized
+
+{
+    menuDef
+    {
+        name "minimap_fullscreen"
+        rect 6 6 0 0 8 8
+        hiddenDuringFlashbang
+        hiddenDuringScope
+        visible 1
+        forecolor 1 1 1 1
+        visible when ( ( ( ! ( ui_active( ) ) ) && ( ! ( spectatingclient( ) ) ) && ( ! ( flashbanged( ) ) ) && ( ! ( ( ( weaponname( ) == "killstreak_ac130_mp" ) || ( weaponname( ) == "killstreak_helicopter_minigun_mp" ) || ( weaponname( ) == "killstreak_predator_missile_mp" ) || ( ( weaponname( ) == "ac130_105mm_mp" ) || ( weaponname( ) == "ac130_40mm_mp" ) || ( weaponname( ) == "ac130_25mm_mp" ) ) || ( adsjavelin( ) ) || ( weaponname( ) == "heli_remote_mp" ) || missilecam( ) ) || ( getperk( "equipment" ) == "_specialty_blastshield" && ( ( ! ( dvarint( "scr_gameended" ) ) ) || inkillcam( ) ) ) ) ) && ( ! ( scoped( ) ) ) && ( ! ( selecting_location( ) ) ) && ( !isempjammed( ) ) && ( ( ! ( dvarbool( "g_hardcore" ) ) ) || radarisenabled( ) || dvarint( "g_compassShowEnemies" ) ) && ( ! ( dvarint( "scr_gameended" ) ) ) ) && ( ! ( milliseconds( ) - localvarint( "ui_show_killedBy" ) < 4000 || ( inkillcam( ) ) ) ) && ( ! ( selecting_location( ) ) ) && ( ! ( spectatingfree( ) ) ) )
+        // Colored minimap OpFor
+        itemDef
+        {
+            name "minimap_map"
+            rect 6 6 100 100 8 8
+            visible 1
+            ownerdraw 159
+            forecolor 1 1 0.8 0.2
+            background "compass_map_default"
+            type 8
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_AXIS" ) && ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_arab") )
+        }
+        itemDef
+        {
+            name "minimap_border"
+            rect 6 6 100 100 8 8
+            visible 1
+            border 1
+            bordersize 0.666667
+            forecolor 1 1 1 1
+            bordercolor 1 1 0.4 0.7
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_AXIS" ) && ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_arab") )
+        }
+        itemDef
+        {
+            rect 6 6 100 100 8 8
+            visible 1
+            style 3
+            forecolor 1 1 0.8 0.5
+            background "minimap_scanlines"
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_AXIS" ) && ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_arab") )
+        }
+
+        // Colored Minimap TF141
+        itemDef
+        {
+            name "minimap_map"
+            rect 6 6 100 100 8 8
+            visible 1
+            ownerdraw 159
+            forecolor 0.8 0.84 1 0.2
+            background "compass_map_default"
+            type 8
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_ALLIES" ) && ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_taskforce141") )
+        }
+        itemDef
+        {
+            name "minimap_border"
+            rect 6 6 100 100 8 8
+            visible 1
+            border 1
+            bordersize 0.666667
+            forecolor 1 1 1 1
+            bordercolor 0.8 0.84 1 1
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_ALLIES" ) && ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_taskforce141") )
+        }
+        itemDef
+        {
+            rect 6 6 100 100 8 8
+            visible 1
+            style 3
+            forecolor 0.8 0.84 1 0.5
+            background "minimap_scanlines"
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_ALLIES" ) && ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_taskforce141") )
+        }
+
+        // Colored minimap Militia & Spets
+        itemDef
+        {
+            name "minimap_map"
+            rect 6 6 100 100 8 8
+            visible 1
+            ownerdraw 159
+            forecolor 1 0.5 0.4 0.2
+            background "compass_map_default"
+            type 8
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_AXIS" ) && ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_ussr" || dvarstring( "g_TeamIcon_Axis" ) == "faction_128_militia" ) )
+        }
+        itemDef
+        {
+            name "minimap_border"
+            rect 6 6 100 100 8 8
+            visible 1
+            border 1
+            bordersize 0.666667
+            forecolor 1 1 1 1
+            bordercolor 0.3 0.3 0.3 1
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_AXIS" ) && ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_ussr" || dvarstring( "g_TeamIcon_Axis" ) == "faction_128_militia" ) )
+        }
+        itemDef
+        {
+            rect 6 6 100 100 8 8
+            visible 1
+            style 3
+            forecolor 0.2 0.2 0.2 1
+            background "minimap_scanlines"
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_AXIS" ) && ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_ussr" || dvarstring( "g_TeamIcon_Axis" ) == "faction_128_militia" ) )
+        }
+
+        // Colored minimap Seals
+        itemDef
+        {
+            name "minimap_map"
+            rect 6 6 100 100 8 8
+            visible 1
+            ownerdraw 159
+            forecolor 0.45 0.5 0.55 0.2
+            background "compass_map_default"
+            type 8
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_ALLIES" ) && ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_seals") )
+        }
+        itemDef
+        {
+            name "minimap_border"
+            rect 6 6 100 100 8 8
+            visible 1
+            border 1
+            bordersize 0.666667
+            forecolor 1 1 1 1
+            bordercolor 0.25 0.3 0.35 1
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_ALLIES" ) && ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_seals") )
+        }
+        itemDef
+        {
+            rect 6 6 100 100 8 8
+            visible 1
+            style 3
+            forecolor 0.3 0.4 0.5 1
+            background "minimap_scanlines"
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_ALLIES" ) && ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_seals") )
+        }
+
+
+        // Colored minimap Ranger
+        itemDef
+        {
+            name "minimap_border"
+            rect 6 6 100 100 8 8
+            visible 1
+            border 1
+            bordersize 0.666667
+            forecolor 0.89 1 0.82 1
+            bordercolor 1 1 1 0.35
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_ALLIES" ) && ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_rangers") )
+        }
+        itemDef
+        {
+            rect 6 6 100 100 8 8
+            visible 1
+            style 3
+            forecolor 0.89 1 0.82 0.05
+            background "minimap_scanlines"
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_ALLIES" ) && ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_rangers") )
+        }
+        itemDef
+        {
+            name "minimap_map"
+            rect 6 6 100 100 8 8
+            visible 1
+            ownerdraw 159
+            forecolor 0.89 1 0.82 1
+            background "compass_map_default"
+            type 8
+            textscale 0.55
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_ALLIES" ) && ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_rangers") )
+        }
+
+        // Minimap other
+        itemDef
+        {
+            name "minimap_border"
+            rect 6 6 100 100 8 8
+            visible 1
+            border 1
+            bordersize 0.666667
+            forecolor 1 1 1 1
+            bordercolor 1 1 1 0.5
+            textscale 0.55
+            visible when ( dvarstring( "g_gametype" ) == "dm" || ( ! ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_rangers") ) && ( ! ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_seals") ) && ( ! ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_taskforce141") ) && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_ussr") ) && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_militia") ) && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_arab") )) 
+        }
+        itemDef
+        {
+            rect 6 6 100 100 8 8
+            visible 1
+            style 3
+            forecolor 1 1 1 0.8
+            background "minimap_scanlines"
+            textscale 0.55
+            visible when ( dvarstring( "g_gametype" ) == "dm" || ( ! ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_rangers") ) && ( ! ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_seals") ) && ( ! ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_taskforce141") ) && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_ussr") ) && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_militia") ) && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_arab") )) 
+        }
+        itemDef
+        {
+            name "minimap_map"
+            rect 6 6 100 100 8 8
+            visible 1
+            ownerdraw 159
+            forecolor 1 1 1 1
+            background "compass_map_default"
+            type 8
+            textscale 0.55
+            visible when ( dvarstring( "g_gametype" ) == "dm" || ( ! ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_rangers") ) && ( ! ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_seals") ) && ( ! ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_taskforce141") ) && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_ussr") ) && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_militia") ) && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_arab") )) 
+        }
+        itemDef
+        {
+            name "minimap_friendlies"
+            rect 6 6 100 100 8 8
+            visible 1
+            ownerdraw 158
+            forecolor 1 1 1 1
+            type 8
+            textscale 0.55
+            exp forecolor a ( 1 - radarjamintensity( ) )
+        }
+        itemDef
+        {
+            name "minimap_enemies"
+            rect 6 6 100 100 8 8
+            visible 1
+            ownerdraw 175
+            forecolor 1 1 1 1
+            type 8
+            textscale 0.55
+            exp forecolor a ( 1 - radarjamintensity( ) )
+        }
+        itemDef
+        {
+            name "minimap_vehicles"
+            rect 6 6 100 100 8 8
+            visible 1
+            ownerdraw 155
+            forecolor 1 1 1 1
+            type 8
+            textscale 0.55
+            exp forecolor a ( 1 - radarjamintensity( ) )
+        }
+        itemDef
+        {
+            name "minimap_planes"
+            rect 6 6 100 100 8 8
+            visible 1
+            ownerdraw 156
+            forecolor 1 1 1 1
+            type 8
+            textscale 0.55
+            exp forecolor a ( 1 - radarjamintensity( ) )
+        }
+        itemDef
+        {
+            name "minimap_sentries"
+            rect 6 6 100 100 8 8
+            visible 1
+            ownerdraw 165
+            forecolor 1 1 1 1
+            type 8
+            textscale 0.55
+            exp forecolor a ( 1 - radarjamintensity( ) )
+        }
+        itemDef
+        {
+            name "minimap_player"
+            rect 6 6 100 100 8 8
+            visible 1
+            ownerdraw 150
+            forecolor 1 1 1 1
+            background "compassping_player"
+            type 8
+            textscale 0.55
+            exp forecolor a ( 1 - radarjamintensity( ) )
+        }
+        itemDef
+        {
+            rect 6 6 100 100 8 8
+            visible 1
+            style 3
+            forecolor 0.64 0.74 0.71 1
+            background "white"
+            textscale 0.55
+            exp forecolor a ( radarjamintensity( ) )
+            visible when ( radarisjammed( ) )
+        }
+        itemDef
+        {
+            rect 6 6 100 100 8 8
+            visible 1
+            style 3
+            forecolor 0.89 0.98 0.95 1
+            background "ac130_overlay_grain"
+            textscale 0.55
+            exp forecolor a ( radarjamintensity( ) )
+            visible when ( radarisjammed( ) )
+        }
+        itemDef
+        {
+            rect 6 6 100 100 8 8
+            visible 1
+            style 3
+            forecolor 1 1 1 1
+            background "stencil_base"
+            textscale 0.55
+        }
+        itemDef
+        {
+            rect 6 6 100 40 8 8
+            visible 1
+            style 3
+            forecolor 1 1 1 1
+            background "scanlines_stencil"
+            textscale 0.55
+            exp rect y ( ( 0 - 100 ) + ( ( 100 * 2 ) * ( 1 - ( ( milliseconds( ) % 1500 ) / 1500 ) ) ) )
+        }
+        itemDef
+        {
+            rect 6 6 100 100 8 8
+            visible 1
+            style 3
+            forecolor 0.89 0.98 0.95 1
+            background "stencil_fill"
+            textscale 0.55
+        }
+        itemDef
+        {
+            rect 6 6 100 100 8 8
+            visible 1
+            style 3
+            forecolor 1 1 1 0.5
+            background "ac130_overlay_grain"
+            textscale 0.55
+        }
+    }
+}

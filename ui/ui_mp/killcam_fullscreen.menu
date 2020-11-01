@@ -1,0 +1,232 @@
+{
+    menuDef
+    {
+        name "killcam_fullscreen"
+        rect 0 0 640 480 4 4
+        visible 1
+        forecolor 1 1 1 1
+        visible when ( ( inkillcam( ) ) )
+        itemDef
+        {
+            rect 0 -84 640 138 4 8
+            decoration
+            visible 1
+            style 3
+            forecolor 0 0 0 0.78
+            background "black"
+            textscale 0.55
+            visible when ( ( ! ( dvarint( "scr_gameended" ) ) ) && ( ( ! ( ui_active( ) ) ) || ( ( ui_active( ) ) && ( menuisopen( "scoreboard" ) ) ) ) )
+        }
+        itemDef
+        {
+            rect  0 54 640 -20 4 8
+            decoration
+            visible 1
+            style 3
+            forecolor 1 1 1 0.78
+            background "gradient_bottom"
+            textscale 0.55
+            visible when ( ( ! ( dvarint( "scr_gameended" ) ) ) && ( ( ! ( ui_active( ) ) ) || ( ( ui_active( ) ) && ( menuisopen( "scoreboard" ) ) ) ) )
+        }
+        itemDef
+        {
+            rect 0 -65 640 138 4 10
+            decoration
+            visible 1
+            style 3
+            forecolor 0 0 0 0.75
+            background "black"
+            textscale 0.55
+            visible when ( ( ! ( dvarint( "scr_gameended" ) ) ) && ( ( ! ( ui_active( ) ) ) || ( ( ui_active( ) ) && ( menuisopen( "scoreboard" ) ) ) ) )
+        }
+        itemDef
+        {
+            rect  0 -85.01 640 20 4 10
+            decoration
+            visible 1
+            style 3
+            forecolor 1 1 1 0.75
+            background "gradient_bottom"
+            textscale 0.55
+            visible when ( ( ! ( dvarint( "scr_gameended" ) ) ) && ( ( ! ( ui_active( ) ) ) || ( ( ui_active( ) ) && ( menuisopen( "scoreboard" ) ) ) ) )
+        }
+        itemDef
+        {
+            rect 0 -84 640 138 4 8
+            decoration
+            visible 1
+            style 3
+            forecolor 0 0 0 0.75
+            background "black"
+            textscale 0.55
+            visible when ( ( dvarint( "scr_gameended" ) ) && ( ( ! ( ui_active( ) ) ) || ( ( ui_active( ) ) && ( menuisopen( "scoreboard" ) ) ) ) )
+        }
+        itemDef
+        {
+            rect  0 54 640 -20 4 8
+            decoration
+            visible 1
+            style 3
+            forecolor 1 1 1 0.75
+            background "gradient_bottom"
+            textscale 0.55
+            visible when ( ( dvarint( "scr_gameended" ) ) && ( ( ! ( ui_active( ) ) ) || ( ( ui_active( ) ) && ( menuisopen( "scoreboard" ) ) ) ) )
+        }
+        itemDef
+        {
+            rect 0 -65 640 138 4 10
+            decoration
+            visible 1
+            style 3
+            forecolor 0 0 0 0.75
+            background "black"
+            textscale 0.55
+            visible when ( ( dvarint( "scr_gameended" ) ) && ( ( ! ( ui_active( ) ) ) || ( ( ui_active( ) ) && ( menuisopen( "scoreboard" ) ) ) ) )
+        }
+        itemDef
+        {
+            rect  0 -85 640 20 4 10
+            decoration
+            visible 1
+            style 3
+            forecolor 1 1 1 0.75
+            background "gradient_bottom"
+            textscale 0.55
+            visible when ( ( dvarint( "scr_gameended" ) ) && ( ( ! ( ui_active( ) ) ) || ( ( ui_active( ) ) && ( menuisopen( "scoreboard" ) ) ) ) )
+        }
+        itemDef
+        {
+            rect 0 36 1 1 2 8
+            decoration
+            visible 1
+            forecolor 1 1 1 1
+            textfont 9
+            textstyle 6
+            textalign 1
+            textscale 0.9
+            text "@MP_KILLCAM"
+            visible when ( ( ! ( dvarint( "scr_gameended" ) ) ) && ( ! ( ui_active( ) ) ) )
+        }
+        itemDef
+        {
+            rect 0 36 1 1 2 8
+            decoration
+            visible 1
+            forecolor 1 1 1 1
+            textfont 9
+            textstyle 6
+            textalign 1
+            textscale 0.5833
+            text "@MP_FINAL_KILLCAM"
+            visible when ( ( dvarint( "scr_gameended" ) ) == 1 && ( ! ( ui_active( ) ) ) )
+        }
+        itemDef
+        {
+            rect 0 36 1 1 2 8
+            decoration
+            visible 1
+            forecolor 1 1 1 1
+            textfont 9
+            textstyle 6
+            textalign 1
+            textscale 0.5833
+            text "@MP_ROUND_KILLCAM"
+            visible when ( ( dvarint( "scr_gameended" ) ) == 2 && ( ! ( ui_active( ) ) ) )
+        }
+
+        // Weapon name/logo and perks on killcam
+        /*
+        itemDef
+        {
+            rect -50 -48 20 40 10 10
+            decoration
+            visible 1
+            ownerdraw 118
+            forecolor 1 1 1 0.9
+            type 8
+            textscale 1.1
+            visible when ( ( inkillcam( ) ) )
+        }
+        itemDef
+        {
+            rect -40 -43 37.3333 0.666667 10 10
+            ownerdraw 83
+            decoration 
+            visible 1
+            forecolor 1 1 1 1
+            type 8
+            textfont 6
+            textscale 0.28
+            textalign 0
+            textstyle 3
+            visible when ( ( inkillcam( ) ) )
+        }
+        itemDef
+        {
+            rect 0 360 34 34 1 1
+            decoration
+            visible 1
+            style 3
+            forecolor 1 1 1 1
+            textscale 0.55
+            visible when ( ( inkillcam( ) ) &&  (getperk( "upgrade1" ) == "specialty_null" ) )
+            exp material ( tablelookup( "mp/perkTable.csv" , 1 , getperk( "perk1" ) , 3 ) )
+        }
+        itemDef
+        {
+            rect 0 360 34 34 1 1
+            decoration
+            visible 1
+            style 3
+            forecolor 1 1 1 1
+            textscale 0.55
+            visible when ( ( inkillcam( ) ) &&  getperk( "upgrade1" ) != "specialty_null"  )
+            exp material ( tablelookup( "mp/perkTable.csv" , 1 , getperk( "perk1" ) , 3 ) + "_upgrade" )
+        }
+        itemDef
+        {
+            rect 40 360 34 34 1 1
+            decoration
+            visible 1
+            style 3
+            forecolor 1 1 1 1
+            textscale 0.55
+            visible when ( ( inkillcam( ) ) &&  (getperk( "upgrade2" ) == "specialty_null" ) )
+            exp material ( tablelookup( "mp/perkTable.csv" , 1 , getperk( "perk2" ) , 3 ) )
+        }
+        itemDef
+        {
+            rect 40 360 34 34 1 1
+            decoration
+            visible 1
+            style 3
+            forecolor 1 1 1 1
+            textscale 0.55
+            visible when ( ( inkillcam( ) ) &&  getperk( "upgrade2" ) != "specialty_null" ) )
+            exp material ( tablelookup( "mp/perkTable.csv" , 1 , getperk( "perk2" ) , 3 ) + "_upgrade" )
+        }
+        itemDef
+        {
+            rect 80 360 34 34 1 1
+            decoration
+            visible 1
+            style 3
+            forecolor 1 1 1 1
+            textscale 0.55
+            visible when ( ( inkillcam( ) ) &&  (getperk( "upgrade3" ) == "specialty_null" ) )
+            exp material ( tablelookup( "mp/perkTable.csv" , 1 , getperk( "perk3" ) , 3 ) )
+        }
+        itemDef
+        {
+            rect 80 360 34 34 1 1
+            decoration
+            visible 1
+            style 3
+            forecolor 1 1 1 1
+            textscale 0.55
+            visible when ( ( inkillcam( ) ) &&  getperk( "upgrade3" ) != "specialty_null" ) )
+            exp material ( tablelookup( "mp/perkTable.csv" , 1 , getperk( "perk3" ) , 3 ) + "_upgrade" )
+        }
+        */
+    }
+}

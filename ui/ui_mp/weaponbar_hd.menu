@@ -1,0 +1,433 @@
+{
+    menuDef
+    {
+        name weaponbar_hd
+        rect 0 0 3 3 0 0
+        visible 1
+        forecolor 1 1 1 1
+        visible when ( ( ( ! ( ui_active( ) ) ) && ( ! ( dvarbool( "g_hardcore" ) ) ) && ( ! ( flashbanged( ) ) ) && ( ! ( ( weaponname( ) == "killstreak_ac130_mp" ) || ( weaponname( ) == "killstreak_helicopter_minigun_mp" ) || ( weaponname( ) == "killstreak_predator_missile_mp" ) || ( ( weaponname( ) == "ac130_105mm_mp" ) || ( weaponname( ) == "ac130_40mm_mp" ) || ( weaponname( ) == "ac130_25mm_mp" ) ) || ( adsjavelin( ) ) || ( weaponname( ) == "heli_remote_mp" ) || missilecam( ) ) ) && ( !isempjammed( ) ) && ( ! ( dvarint( "scr_gameended" ) ) ) ) && ! ( selecting_location( ) ) && ( ! ( spectatingfree( ) ) ) )
+
+        // ===================
+        // AMMO COUNTER
+        itemDef
+        {
+            rect -200 -41.2 192 27.2 10 10
+            decoration
+            visible 1
+            style 3
+            forecolor 0 0 0 0.38
+            background "gradient_fadein"
+            textscale 0.55
+            visible when ( ( player( "stockAmmo" ) ) >= 100 && ( ! ( inkillcam( ) ) ) )
+        }
+        itemDef
+        {
+            rect -200 -41.2 192 1 10 10
+            decoration
+            visible 1
+            style 3
+            forecolor 1 1 1 0.65
+            background "gradient_fadein"
+            textscale 0.55
+            visible when ( ( player( "stockAmmo" ) ) >= 100 && ( ! ( inkillcam( ) ) ) )
+        }
+        itemDef
+        {
+            rect -200 -41.2 179 27.2 10 10
+            decoration
+            visible 1
+            style 3
+            forecolor 0 0 0 0.38
+            background "gradient_fadein"
+            textscale 0.55
+            visible when ( ( player( "stockAmmo" ) ) < 100 && ( ! ( inkillcam( ) ) ) )
+        }
+        itemDef
+        {
+            rect -200 -41.2 179 1 10 10
+            decoration
+            visible 1
+            style 3
+            forecolor 1 1 1 0.65
+            background "gradient_fadein"
+            textscale 0.55
+            visible when ( ( player( "stockAmmo" ) ) < 100 && ( ! ( inkillcam( ) ) ) )
+        }
+        itemDef
+        {
+            rect -21 -41.2 27.2 27.2 10 10
+            decoration
+            visible 1
+            style 3
+            forecolor 1 1 1 1
+            background "cardicon_gun_fn2000"
+            textscale 0.55
+            visible when ( ( player( "stockAmmo" ) ) < 100 && ( ! ( inkillcam( ) ) ) )
+        }
+        itemDef
+        {
+            rect -8 -41.2 27.2 27.2 10 10
+            decoration
+            visible 1
+            style 3
+            forecolor 1 1 1 1
+            background "cardicon_gun_fn2000"
+            textscale 0.55
+            visible when ( ( player( "stockAmmo" ) ) >= 100 && ( ! ( inkillcam( ) ) ) )
+        }
+
+        itemDef
+        {
+            rect -66 -12.5 37.3333 0.666667 10 10
+            decoration
+            visible 1
+            ownerdraw 119
+            forecolor 1 1 1 1
+            type 8
+            textfont 6
+            textscale 0.62
+            textstyle 6
+            textalign 1
+            visible when ( ( player( "stockAmmo" ) ) < 100 && ( ! ( inkillcam( ) ) ) )
+        }
+        itemDef
+        {
+            rect -55 -12.5 37.3333 0.666667 10 10
+            decoration
+            visible 1
+            ownerdraw 119
+            forecolor 1 1 1 1
+            type 8
+            textfont 6
+            textscale 0.62
+            textstyle 6
+            textalign 1
+            visible when ( ( player( "stockAmmo" ) ) >= 100 && ( ! ( inkillcam( ) ) ) )
+        }
+
+
+        // ===================
+        // EQUIPMENT ICONS
+        itemDef
+        {
+            name "offhandFragIcon"
+            rect -77 -60 17 17 10 10
+            decoration
+            visible 1
+            ownerdraw 103
+            forecolor 1 1 1 1
+            type 8
+            textscale 0.55
+            visible when ( ( player( "fragAmmo" ) ) && ( ! ( inkillcam( ) ) ) )
+        }
+        itemDef
+        {
+            name "offhandFragIcon"
+            rect -75 -60 17 17 10 10
+            decoration
+            visible 1
+            ownerdraw 103
+            forecolor 1 1 1 1
+            type 8
+            textscale 0.55
+            visible when ( ( player( "fragAmmo" ) ) > 1 && ( ! ( inkillcam( ) ) ) )
+        }
+        itemDef
+        {
+            name "offhandSmokeIcon"
+            rect -102 -60 17 17 10 10
+            decoration
+            visible 1
+            ownerdraw 104
+            forecolor 1 1 1 0.5
+            type 8
+            textscale 0.55
+            visible when ( ( player( "smokeAmmo" ) ) > 2 && ( ! ( inkillcam( ) ) ) )
+        }
+        itemDef
+        {
+            name "offhandSmokeIcon"
+            rect -99 -60 17 17 10 10
+            decoration
+            visible 1
+            ownerdraw 104
+            forecolor 1 1 1 0.5
+            type 8
+            textscale 0.55
+            visible when ( ( player( "smokeAmmo" ) ) > 1 && ( ! ( inkillcam( ) ) ) )
+        }
+        itemDef
+        {
+            name "offhandSmokeIcon"
+            rect -96 -60 17 17 10 10
+            decoration
+            visible 1
+            ownerdraw 104
+            forecolor 1 1 1 1
+            type 8
+            textscale 0.55
+            visible when ( ( player( "smokeAmmo" ) ) && ( ! ( inkillcam( ) ) ) )
+        }
+
+
+        // ===================
+        // STANCE INDICATOR
+        itemDef
+        {
+            rect -154 -74 -45 45 10 10
+            decoration
+            visible 1
+            ownerdraw 20
+            forecolor 0 0 0 1
+            type 8
+            textfont 6
+            textscale 0.55
+            visible when ( !actionslotusable( 3 ) ) && ( ! ( inkillcam( ) ) ) )
+            exp forecolor a ( hudfade( "stance" ) )
+        }
+        itemDef
+        {
+            rect -154 -74 -43 43 10 10
+            decoration
+            visible 1
+            ownerdraw 20
+            forecolor 1 1 1 1
+            type 8
+            textfont 6
+            textscale 0.55
+            visible when ( !actionslotusable( 3 ) ) && ( ! ( inkillcam( ) ) ) )
+            exp forecolor a ( hudfade( "stance" ) )
+        }
+        itemDef
+        {
+            rect -173 -74 -45 45 10 10
+            decoration
+            visible 1
+            ownerdraw 20
+            forecolor 0 0 0 1
+            type 8
+            textfont 6
+            textscale 0.55
+            visible when ( actionslotusable( 3 ) && ( ! ( inkillcam( ) ) ) )
+            exp forecolor a ( hudfade( "stance" ) )
+        }
+        itemDef
+        {
+            rect -173 -74 -43 43 10 10
+            decoration
+            visible 1
+            ownerdraw 20
+            forecolor 1 1 1 1
+            type 8
+            textfont 6
+            textscale 0.55
+            visible when ( actionslotusable( 3 ) ) && ( ! ( inkillcam( ) ) ) )
+            exp forecolor a ( hudfade( "stance" ) )
+        }
+
+
+        // ===================
+        // AMMO CLIPS & WEAPON NAME
+        itemDef
+        {
+            name "clipGraphic"
+            rect -60 -21 20 20 10 10
+            decoration
+            visible 1
+            ownerdraw 117
+            forecolor 1 1 1 0.9
+            type 8
+            textscale 1.1
+            visible when ( ! ( inkillcam( ) ) )
+        }
+        itemDef
+        {
+            name "clipGraphic"
+            rect -100 -21 20 20 10 10
+            decoration
+            visible 1
+            ownerdraw 121
+            forecolor 1 1 1 0.9
+            type 8
+            textscale 1.1
+            visible when ( ! ( inkillcam( ) ) )
+        }
+        itemDef
+        {
+            rect -70 -26.5 37.3333 0.666667 10 10
+            ownerdraw 83
+            decoration 
+            visible 1
+            forecolor 1 1 1 1
+            type 8
+            textfont 6
+            textscale 0.285
+            textstyle 3
+            visible when ( ! ( inkillcam( ) ) )
+        }
+        itemDef
+        {
+            name "lowammowarning"
+            rect -40 25 80 20 2 2
+            decoration
+            visible 1
+            ownerdraw 120
+            forecolor 1 1 1 1
+            background cardtitle_horsemen_death
+            type 8
+            textfont 9
+            textalign 9
+            textaligny -0.8
+            textstyle 6
+            textscale 0.3333
+            visible when ( ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+        }
+        itemDef
+        {
+            rect -100 0 200 19 2 8
+            decoration
+            visible 1
+            ownerdraw 145
+            forecolor 1 1 1 0.5
+            type 8
+            textfont 6
+            textstyle 3
+            textscale 0.18
+            background "minimap_tickertape_mp"
+            visible when ( ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+        }
+
+        // ===================
+        // TIMERS 
+        itemDef
+        {
+            rect -50 130 100 100 2 2
+            decoration
+            visible 0
+            forecolor 1 1 1 1
+            textfont 6
+            textalign 9
+            textscale 0.3
+            textstyle 3
+            disabled when ( ( dvarint( "ui_bomb_timer" ) == 1 ) || ( dvarint( "ui_bomb_timer" ) == 4 ) + ( ( dvarint( "ui_bomb_timer" ) > 0 ) ) )
+            visible when ( ( timeLeft( ) >= 60 && !dvarBool( ui_bomb_timer ) ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) && ( ! ( inkillcam( ) ) ) )
+            exp text ( secondsascountdown( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 0.5 * 60 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) ) )
+        }
+        itemDef
+        {
+            rect -50 130 100 100 2 2
+            decoration
+            visible 0
+            forecolor 1 0.6 0 1
+            glowColor 1 0.5 0 0.2
+            textfont 6
+            textalign 9
+            textscale 0.3
+            textstyle 3
+            disabled when ( ( dvarint( "ui_bomb_timer" ) == 1 ) || ( dvarint( "ui_bomb_timer" ) == 4 ) + ( ( dvarint( "ui_bomb_timer" ) > 0 ) ) )
+            visible when ( ( timeLeft( ) >= 30 && timeLeft( ) < 60 && !dvarBool( ui_bomb_timer ) ) && ( ! ( inkillcam( ) ) ))
+            exp text ( secondsascountdown( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 0.5 * 60 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) ) )
+        }
+        itemDef
+        {
+            rect -50 130 100 100 2 2
+            decoration
+            visible 0
+            forecolor 1 0.2 0.2 1
+            glowColor 1 0.15 0 1
+            textfont 6
+            textalign 9
+            textscale 0.3
+            textstyle 3
+            disabled when ( ( dvarint( "ui_bomb_timer" ) == 1 ) || ( dvarint( "ui_bomb_timer" ) == 4 ) + ( ( dvarint( "ui_bomb_timer" ) > 0 ) ) )
+            visible when ( ( timeLeft( ) >= 0 && timeLeft( ) < 30 && !dvarBool( ui_bomb_timer ) ) && ( ! ( inkillcam( ) ) ) )
+            exp text ( secondsascountdown( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 0.5 * 60 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) ) + "." + ( 9 - int( ( milliseconds( ) / 100 ) % 10 ) ) )
+        }
+
+
+        // ===================
+        // BOMBS & NUKES DECOS
+        itemDef
+        {
+            rect -15 164 32 32 2 2
+            style 3
+            decoration
+            visible 1
+            forecolor 1 1 1 0.7
+            textscale 0.55
+            visible when ( ( dvarint( "ui_bomb_timer" ) ) > 0 && ( dvarint( "ui_bomb_timer" ) ) < 4 && ( ! ( inkillcam( ) ) ))
+            exp material ( "hud_suitcase_bomb" )
+        }
+        itemDef
+        {
+            rect -12 164 32 32 2 2
+            style 3
+            decoration
+            visible 1
+            forecolor 1 1 1 0.7
+            textscale 0.55
+            visible when ( ( dvarint( "ui_bomb_timer" ) ) == 4 && ( ! ( inkillcam( ) ) ))
+            exp material ( "dpad_killstreak_nuke" )
+        }
+        itemDef
+        {
+            rect -50 113 100 100 2 2
+            decoration
+            visible 0
+            forecolor 1 1 1 1
+            glowColor 1 0.25 0 1
+            textfont 6
+            textalign 13
+            textaligny -25.5
+            textscale 0.3
+            textstyle 3
+            visible when ( dvarint( "ui_bomb_timer" ) == 1 && ( ! ( inkillcam( ) ) ))
+            exp text ( secondsascountdown( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 0.5 * 60 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) ) + "." + ( 9 - int( ( milliseconds( ) / 100 ) % 10 ) ) )
+        }
+        itemDef
+        {
+            rect -50 113 100 100 2 2
+            decoration
+            visible 0
+            forecolor 1 1 0.5 1
+            glowColor 1 0.15 0 1
+            textfont 6
+            textalign 13
+            textaligny -25.5
+            textscale 0.3
+            textstyle 3
+            visible when ( dvarint( "ui_bomb_timer" ) == 4 && ( ! ( inkillcam( ) ) ))
+            exp text ( secondsascountdown( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 0.5 * 60 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) ) + "." + ( 9 - int( ( milliseconds( ) / 100 ) % 10 ) ) )
+        }
+        itemDef
+        {
+            rect -50 106 100 100 2 2
+            decoration
+            visible 1
+            forecolor 1 1 1 1
+            glowColor 1 0.25 0 1
+            textfont 6
+            textalign 13
+            textaligny -25.5
+            textscale 0.22
+            textstyle 3
+            visible when ( dvarint( "ui_bomb_timer" ) > 1 && dvarint( "ui_bombtimer_a" ) >= 0 && dvarint( "ui_bomb_timer" ) != 4 && ( ! ( inkillcam( ) ) ))
+            exp text ( locstring( "@MP_BOMB_A_COLON_N_N" , dvarint( "ui_bombtimer_a" ) , ( 9 - int( ( milliseconds( ) / 100 ) % 10 ) ) ) )
+        }
+        itemDef
+        {
+            rect -50 117 100 100 2 2
+            decoration
+            visible 1
+            forecolor 1 1 1 1
+            glowColor 1 0.25 0 1
+            textfont 6
+            textalign 13
+            textaligny -25.5
+            textscale 0.22
+            textstyle 3
+            visible when ( dvarint( "ui_bomb_timer" ) > 1 && dvarint( "ui_bombtimer_b" ) >= 0 && dvarint( "ui_bomb_timer" ) != 4 && ( ! ( inkillcam( ) ) ))
+            exp text ( locstring( "@MP_BOMB_B_COLON_N_N" , dvarint( "ui_bombtimer_b" ) , ( 9 - int( ( milliseconds( ) / 100 ) % 10 ) ) ) )
+        }
+    }
+}

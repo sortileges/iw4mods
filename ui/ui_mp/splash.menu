@@ -1,0 +1,37 @@
+{
+    menuDef
+    {
+        name "splash"
+        rect 0 0 640 1 1 0
+        decoration
+        forecolor 1 1 1 1
+        onOpen
+        {
+            lerp "alpha" "from" 0 "to" 1 "over" 0.01;
+            setLocalVarInt "defcon_update_time" ( milliseconds( ) + 1000 );
+            close "challenge";
+            close "defcon";
+            close "killstreak_pickup";
+            close "killstreak";
+            close "perk_challenge";
+            close "promotion";
+        }
+        onRequestClose
+        {
+            lerp "alpha" from 1 "to" 0 "over" 0.15;
+        }
+        itemDef
+        {
+            name "splash_title"
+            rect -25 -39 0 0 2 2
+            decoration
+            visible 1
+            forecolor 1 1 0.5 1
+            textfont 10
+            textalign 0
+            textstyle 3
+            textscale 0.35
+            exp text ( getsplashtext( 0 ) )
+        }
+    }
+}

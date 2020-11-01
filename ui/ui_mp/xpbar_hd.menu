@@ -1,0 +1,9 @@
+// XP bar is for scrubz >:)
+
+#include "ui/menudef.h"
+{
+	menuDef
+	{
+		name "xpbar_hd"
+	}
+}
