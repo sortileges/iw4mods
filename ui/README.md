@@ -14,4 +14,6 @@ This is my own HUD that I started working on a few months ago. It is fully usabl
 
 - The entire HUD scales depending of your safe area.
 
+- The [killcam_fullscreen](https://github.com/sortileges/iw4mods/blob/master/ui/ui_mp/killcam_fullscreen.menu) includes some leftover items that let you show the player's perks and weapons. You only have to uncomment those items. [This is how it looks like.](https://i.gyazo.com/66a5970ef480d53deee2397315d67de5.png) 
+
 - For the compass at the top to work, you need to create a fastfile with the provided material and load it.
