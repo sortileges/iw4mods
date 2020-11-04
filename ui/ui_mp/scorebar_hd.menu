@@ -233,7 +233,6 @@
             exp rect w ( ( 20 / 1.5 ) + ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 1.5 ) )
             visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_ALLIES" ) && ( dvarstring( "g_TeamIcon_Allies" ) == "faction_128_seals") )
         }
-        /* REGULAR OPFORCE COLOR
         itemDef
         {
             rect 82 -59 114.667 23 8 10
@@ -241,18 +240,6 @@
             decoration
             visible 1
             forecolor 1 0.9 0.7 1
-            background "hud_scorebar_topbar"
-            textscale 1
-            exp rect w ( ( 20 / 1.5 ) + ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 1.5 ) )
-            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( team( "name" ) == "TEAM_AXIS" ) && ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_arab") )
-        }*/
-        itemDef
-        {
-            rect 82 -59 114.667 23 8 10
-            style 3
-            decoration
-            visible 1
-            forecolor 0.6 0.1 0.19 1
             background "hud_scorebar_topbar"
             textscale 1
             exp rect w ( ( 20 / 1.5 ) + ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 1.5 ) )
