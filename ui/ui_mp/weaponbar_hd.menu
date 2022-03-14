@@ -282,6 +282,7 @@
             textscale 0.3333
             visible when ( ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
         }
+        /*
         itemDef
         {
             rect -100 0 200 19 2 8
@@ -296,7 +297,7 @@
             background "minimap_tickertape_mp"
             visible when ( ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
         }
-
+        */
         // ===================
         // TIMERS 
         itemDef
