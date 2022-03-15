@@ -1,0 +1,152 @@
+// ==========================================================
+// 	MW2 Alpha 482 HUD
+// 	by @simonlfc_
+// ==========================================================
+
+#include "ui/menudef.h"
+#include "ui_mp/macros.inc"
+{
+	menuDef
+	{
+		name "scorebar_hd"
+		rect 0 0 240 480 8 8
+		visible 1
+		forecolor 1 1 1 1
+		visible when ( ( ( ! ( ui_active( ) ) ) && ( ! ( dvarbool( "g_hardcore" ) ) ) && ( ! ( flashbanged( ) ) ) && ( ! ( ( weaponname( ) == "killstreak_ac130_mp" ) || ( weaponname( ) == "killstreak_helicopter_minigun_mp" ) || ( weaponname( ) == "killstreak_predator_missile_mp" ) || ( ( weaponname( ) == "ac130_105mm_mp" ) || ( weaponname( ) == "ac130_40mm_mp" ) || ( weaponname( ) == "ac130_25mm_mp" ) ) || ( adsjavelin( ) ) || ( weaponname( ) == "heli_remote_mp" ) || missilecam( ) ) ) && ( !isempjammed( ) ) && ( ! ( dvarint( "scr_gameended" ) ) ) ) && !inkillcam( ) && ! ( selecting_location( ) ) )
+		
+		PREPROC_SHADER_DRAW( 0 -62.6667 341.333 42.6667 8 10, "hud_scorebar", 1 1 1 0.65, ( team( "name" ) != "TEAM_SPECTATOR" ) )
+		
+		// top team, score bar
+		PREPROC_SHADER_DRAW( 212 -42.667 17.3333 12 8 10, "hud_scorebar_topcap_bg", 1 1 1 0.5, ( team( "name" ) != "TEAM_SPECTATOR" ) )
+		PREPROC_SHADER_DRAW_BASE( 88 -42.667 114.667 12 8 10, "hud_scorebar_topbar", 0.75 0.75 0.75 0.75, ( team( "name" ) != "TEAM_SPECTATOR" ), exp rect w ( ( 20 / 1.5 ) + ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 172 / 1.5 ) ) )
+		PREPROC_SHADER_DRAW_BASE( 202.667 -42.667 10.6667 12 8 10, "hud_scorebar_topcap", 0.5 0.8 0.5 1,( team( "name" ) != "TEAM_SPECTATOR" ), exp rect x ( ( ( 132 + 20 ) / 1.5 ) + ( ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 172 / 1.5 ) ) - ( 6 / 1.5 ) ) )
+		
+		// bottom team, score bar
+		PREPROC_SHADER_DRAW( 212 -31.6667 10.6667 10.667 8 10, "hud_scorebar_bottomcap_bg", 1 1 1 0.5, ( team( "name" ) != "TEAM_SPECTATOR" ) )
+		PREPROC_SHADER_DRAW_BASE( 88 -31.6667 114.667 11.667 8 10, "hud_scorebar_bottombar", 0.75 0.75 0.75 0.75, ( team( "name" ) != "TEAM_SPECTATOR" ), exp rect w ( ( ( 20 ) / 1.5 ) + ( ( ( otherteam( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( ( ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) ) * ( scoreatrank( 2 ) ) ) + ( ( ( player( "score" ) ) != ( scoreatrank( 1 ) ) ) * ( scoreatrank( 1 ) ) ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 172 / 1.5 ) ) )
+		PREPROC_SHADER_DRAW_BASE( 202.667 -31.6667 10.6667 11.667 8 10, "hud_scorebar_bottomcap", 0.7 0.25 0.2 1, ( team( "name" ) != "TEAM_SPECTATOR" ), exp rect x ( ( ( 132 + 20 ) / 1.5 ) + ( ( ( ( otherteam( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( ( ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) ) * ( scoreatrank( 2 ) ) ) + ( ( ( player( "score" ) ) != ( scoreatrank( 1 ) ) ) * ( scoreatrank( 1 ) ) ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 172 / 1.5 ) ) - ( 6 / 1.5 ) ) )
+		
+		// factions
+		PREPROC_SHADER_DRAW( 5.33333 -58.6667 54.6667 54.6667 8 10, dvarstring( "g_TeamIcon_Axis" ) + "_fade", 1 1 1 1, team( "name" ) == "TEAM_AXIS" || ( team( "name" ) == "TEAM_FREE" && ( localvarstring( "ui_team" ) == "opfor" ) ) )
+		PREPROC_SHADER_DRAW( 5.33333 -58.6667 54.6667 54.6667 8 10, dvarstring( "g_TeamIcon_Allies" ) + "_fade", 1 1 1 1, team( "name" ) == "TEAM_ALLIES" || ( team( "name" ) == "TEAM_FREE" && ( localvarstring( "ui_team" ) == "marines" ) ) )
+		
+		
+		
+		// gametype specific states
+		PREPROC_TEXT_DRAW( 6 106 100 30 8 8, 10, "@MPUI_FIRST_HALF", 4, 0.3333, 1 1 1 0.65, ( ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) && ! ( dvarint( "ui_overtime" ) ) ) && ! ( timeleft( ) < 1 ) )
+		PREPROC_TEXT_DRAW( 6 106 100 30 8 8, 10, "@MP_OVERTIME", 4, 0.3333, 0.85 0.4 0.4 1, ( dvarint( "ui_overtime" ) ) && ! ( timeleft( ) < 1 ) )
+		itemDef
+		{
+			rect 6 106 100 30 8 8
+			decoration
+			visible 1
+			forecolor 1 1 1 0.65
+			textfont 10
+			textalign 4
+			textscale 0.3333
+			textstyle 6
+			disabled when ( timeleft() < 0 )
+			visible when ( ( ( ( dvarint( "ui_halftime" ) ) && ! ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) && ! ( dvarint( "ui_overtime" ) ) ) && ! ( timeleft( ) < 1 ) )
+			exp text ( "@MPUI_SECOND_HALF" )
+		}
+		itemDef
+		{
+			rect 112 6 100 30 8 8
+			decoration
+			visible 1
+			forecolor 1 0.55 0.55 1
+			textfont 10
+			textalign 4
+			textscale 0.3333
+			textstyle 7
+			visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( dvarstring( "ui_danger_team" ) != "BombExploded" && ( team( "name" ) == "TEAM_ALLIES" && dvarstring( "ui_danger_team" ) == "allies" ) || ( team( "name" ) == "TEAM_AXIS" && dvarstring( "ui_danger_team" ) == "axis" ) ) )
+			exp text ( "@MENU_SAB_DANGER" )
+		}
+		itemDef
+		{
+			rect 112 6 100 30 8 8
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 10
+			textalign 4
+			textscale 0.3333
+			textstyle 7
+			visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( dvarstring( "ui_danger_team" ) != "BombExploded" && dvarstring( "ui_danger_team" ) == "none" ) )
+			exp text ( "@MENU_SAB_NEUTRAL" )
+		}
+		
+		PREPROC_TEXT_DRAW( 112 6 100 30 8 8, 10, "@MENU_SAB_SAFE", 4, 0.3333, 0.63 0.86 0.6 1, ( team( "name" ) != "TEAM_SPECTATOR" ) && ( dvarstring( "ui_danger_team" ) != "BombExploded" && ( team( "name" ) == "TEAM_ALLIES" && dvarstring( "ui_danger_team" ) == "axis" ) || ( team( "name" ) == "TEAM_AXIS" && dvarstring( "ui_danger_team" ) == "allies" ) ) )
+		PREPROC_TEXT_DRAW( 112 6 100 30 8 8, 10, "@MENU_CONTESTED", 4, 0.3333, 1 0.55 0.55 1, ( team( "name" ) != "TEAM_SPECTATOR" ) && ( dvarstring( "ui_danger_team" ) == "contested" ) )
+		
+		// gametype name
+		PREPROC_TEXT_DRAW( 61 -44.6667 0.666667 0.666667 8 10, 9, gametypename( ), 0, 0.3333, 1 0.8 0.4 0.85, ( milliseconds( ) % 30000 ) > 0 && ( milliseconds( ) % 30000 ) < 4000 )
+
+		// your score, other team score
+		SCORE( 12, 0 0.2 0 1, ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) ) )
+		SCORE( 4, 0.2 0 0 1, ( ( otherteam( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( ( ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) ) * ( scoreatrank( 2 ) ) ) + ( ( ( player( "score" ) ) != ( scoreatrank( 1 ) ) ) * ( scoreatrank( 1 ) ) ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) )
+
+		// are we winning or are we shit?
+		STATE( 0.4 1 0.4 1, "@MPUI_WINNING_CAPS", 	TEAM_BASED_GAMEMODE && SHOULD_DISPLAY_SCOREBAR && TEAM_IS_WINNING )
+		STATE( 1 0.4 0.4 1, "@MPUI_LOSING_CAPS", 	TEAM_BASED_GAMEMODE && SHOULD_DISPLAY_SCOREBAR && TEAM_IS_LOSING )
+		STATE( 0.8 0.8 0.8 0.8, "@MPUI_TIED_CAPS", 	TEAM_BASED_GAMEMODE && SHOULD_DISPLAY_SCOREBAR && TEAM_IS_TIED )
+
+		STATE( 0.4 1 0.4 1, "@MPUI_WINNING_CAPS", 	NONTEAM_BASED_GAMEMODE && SHOULD_DISPLAY_SCOREBAR && PLAYER_IS_WINNING )
+		STATE( 1 0.4 0.4 1, "@MPUI_LOSING_CAPS", 	NONTEAM_BASED_GAMEMODE && SHOULD_DISPLAY_SCOREBAR && PLAYER_IS_LOSING )
+		STATE( 0.8 0.8 0.8 0.8, "@MPUI_TIED_CAPS", 	NONTEAM_BASED_GAMEMODE && SHOULD_DISPLAY_SCOREBAR && PLAYER_IS_TIED )
+
+		// regular timers
+		TIMER( 1 1 1 0.65, 0 0 0 0, REGULAR_TIMER, when ( ( ( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 0.5 * 60 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) >= 60 && !dvarint( "ui_bomb_timer" ) ) )
+		TIMER( 1 1 1 1, 0.8 0.65 0 1, ORANGE_TIMER, when ( ( ( ( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 0.5 * 60 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) >= 30 && !dvarint( "ui_bomb_timer" ) ) && ( ( ( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 0.5 * 60 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) < 60 && !dvarint( "ui_bomb_timer" ) ) ) )
+		TIMER( 1 1 1 1, 1 0.25 0 1, RED_TIMER, when ( ( ( ( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 0.5 * 60 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) >= 0 && !dvarint( "ui_bomb_timer" ) ) && ( ( ( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 0.5 * 60 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) < 30 && !dvarint( "ui_bomb_timer" ) ) ) )
+
+		// standard single bomb/nuke timer
+		PREPROC_SHADER_DRAW( 228 -52 42 42 8 10, "dpad_killstreak_nuke", 1 1 1 1, ( dvarint( "ui_bomb_timer" ) ) == 4 )
+		PREPROC_SHADER_DRAW( 228 -52 42 42 8 10, "hud_suitcase_bomb", 1 1 1 0.5, ( dvarint( "ui_bomb_timer" ) ) > 0 && ( dvarint( "ui_bomb_timer" ) ) < 4 )
+		itemDef
+		{
+			rect 228 -32 54.6667 54.6667 8 10
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			glowColor 1 0.25 0 1
+			textfont 9
+			textalign 4
+			textscale 0.3333
+			textstyle 6
+			visible when ( dvarint( "ui_bomb_timer" ) == 1 || dvarint( "ui_bomb_timer" ) == 4 )
+			exp text ( secondsAsCountdown( timeLeft() ) + "." + (9 - int( ( milliseconds ( ) / 100) % 10 ) ) )
+		}
+		// multi-bomb timer
+		itemDef
+		{
+			rect 228 -32 54.6667 54.6667 8 10
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			glowColor 1 0.25 0 1
+			textfont 9
+			textalign 4
+			textscale 0.3333
+			textstyle 6
+			disabled when ( dvarint( "ui_bomb_timer" ) == 4 )
+			visible when ( dvarint( "ui_bomb_timer" ) > 1 && dvarint( "ui_bombtimer_a" ) >= 0 && dvarint( "ui_bomb_timer" ) != 4 )
+			exp text ( locstring( "@MP_BOMB_A_COLON_N_N" , dvarint( "ui_bombtimer_a" ) , ( 9 - int( ( milliseconds( ) / 100 ) % 10 ) ) ) )
+		}
+		itemDef
+		{
+			rect 228 -16 54.6667 54.6667 8 10
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			glowColor 1 0.25 0 1
+			textfont 9
+			textalign 4
+			textscale 0.3333
+			textstyle 6
+			disabled when ( dvarint( "ui_bomb_timer" ) == 4 )
+			visible when ( dvarint( "ui_bomb_timer" ) > 1 && dvarint( "ui_bombtimer_b" ) >= 0 && dvarint( "ui_bomb_timer" ) != 4 )
+			exp text ( locstring( "@MP_BOMB_B_COLON_N_N" , dvarint( "ui_bombtimer_b" ) , ( 9 - int( ( milliseconds( ) / 100 ) % 10 ) ) ) )
+		}
+	}
+}

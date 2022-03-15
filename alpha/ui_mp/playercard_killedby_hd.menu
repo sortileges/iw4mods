@@ -1,0 +1,117 @@
+{
+	menuDef
+	{
+		name "playercard_killedby_hd"
+		rect 0 0 640 480 1 1
+		visible 1
+		forecolor 1 1 1 1
+		visible when ( ( milliseconds( ) - localvarint( "ui_show_killedBy" ) < 4000 || ( inkillcam( ) ) ) )
+		exp rect x ( -( max( min( ( 1 - ( milliseconds( ) - localvarint( "ui_show_killedBy" ) ) / ( 150 / dvarfloat("timescale") ) ) , 1 ) , 0 ) * ( 1000 ) ) + ( min( max( ( milliseconds( ) - localvarint( "ui_show_killedBy" ) + ( 7800 / dvarfloat("timescale") ) ) / ( 150 / dvarfloat("timescale")) , 0 ) , 1 ) * ( 500 ) ) )
+		itemDef
+		{
+			rect 0 0 235 52 2 8
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "cardtitle_horsemen_war" // Yellow stripe thing
+			textscale 0.55
+			exp rect x ( ( -370 ) )
+			exp rect y ( ( 46 ) )
+			visible when ( ( getplayercardinfo( 0 , 0 , 7 ) != 0 ) )
+		}
+		itemDef
+		{
+			rect 0 0 300 38 2 8
+			decoration
+			visible 1
+			style 3
+			forecolor 0 0 0 1
+			background "black"
+			textscale 0.55
+			exp rect x ( ( -470 ) )
+			exp rect y ( ( 53 ) )
+			visible when ( ( getplayercardinfo( 0 , 0 , 7 ) != 0 ) )
+		}
+		itemDef
+		{
+			rect 0 0 38 38 2 8
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			textscale 0.55
+			exp rect x ( ( -370 ) )
+			exp rect y ( ( 53 ) )
+			visible when ( ( getplayercardinfo( 0 , 0 , 7 ) != 0 ) )
+			exp material ( tablelookupbyrow( "mp/cardIconTable.csv" , getplayercardinfo( 2 , 0 , 7 ) , 1 ) )
+		}
+		itemDef
+		{
+			rect 0 0 255 38 2 8
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			backcolor 1 1 1 1
+			textfont 9
+			textalign 2
+			textaligny 16
+			textalignx -44
+			textstyle 6
+			textscale 0.32
+			exp rect x ( ( -332 ) )
+			exp rect y ( ( 53 ) )
+			exp forecolor r ( tablelookupbyrow( "mp/cardTitleTable.csv" , getplayercardinfo( 1 , 0 , 7 ) , 3 ) )
+			exp forecolor g ( tablelookupbyrow( "mp/cardTitleTable.csv" , getplayercardinfo( 1 , 0 , 7 ) , 4 ) )
+			exp forecolor b ( tablelookupbyrow( "mp/cardTitleTable.csv" , getplayercardinfo( 1 , 0 , 7 ) , 5 ) )
+			visible when ( ( getplayercardinfo( 0 , 0 , 7 ) != 0 ) )
+			exp text ( "@" + tablelookupbyrow( "mp/cardTitleTable.csv" , getplayercardinfo( 1 , 0 , 7 ) , 1 ) )
+			exp material ( tablelookupbyrow( "mp/cardTitleTable.csv" , getplayercardinfo( 1 , 0 , 7 ) , 2 ) )
+		}
+		itemDef
+		{
+			rect 0 0 20 20 2 8
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			backcolor 1 1 1 1
+			textscale 0.55
+			exp rect x ( ( -313 ) )
+			exp rect y ( ( 71 ) )
+			visible when ( ( getplayercardinfo( 0 , 0 , 7 ) != 0 ) && ( getplayercardinfo( 4 , 0 , 7 ) >= 0 ) )
+			exp material ( tablelookup( "mp/rankIconTable.csv" , 0 , getplayercardinfo( 4 , 0 , 7 ) , ( getplayercardinfo( 5 , 0 , 7 ) + 1 ) ) )
+		}
+		itemDef
+		{
+			rect 0 0 20 20 2 8
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 9
+			textstyle 3
+			textscale 0.375
+			exp rect x ( ( -333 ) )
+			exp rect y ( ( 70 ) )
+			visible when ( ( getplayercardinfo( 0 , 0 , 7 ) != 0 ) && ( getplayercardinfo( 4 , 0 , 7 ) >= 0 ) )
+			exp text ( tablelookup( "mp/rankTable.csv" , 0 , getplayercardinfo( 4 , 0 , 7 ) , 14 ) )
+		}
+		itemDef
+		{
+			rect 0 0 160 20 2 8
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 8
+			textalign 2
+			textstyle 6
+			textscale 0.4
+			exp rect x ( ( -281 ) )
+			exp rect y ( ( 89 ) )
+			visible when ( ( ( getplayercardinfo( 0 , 0 , 7 ) != 0 ) && ( getplayercardinfo( 6 , 0 , 7 )  ) ) )
+			exp text ( getplayercardinfo( 8 , 0 , 7 ) )
+		}
+	}
+}
