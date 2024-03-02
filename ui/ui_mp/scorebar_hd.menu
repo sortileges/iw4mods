@@ -183,7 +183,7 @@
             background "hud_scorebar_topbar"
             textscale 1
             exp rect w ( ( 20 / 1.5 ) + ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) / dvarint( "ui_scorelimit" ) ) * ( 155 / 1.5 ) )
-            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( ( team( "name" ) == "TEAM_AXIS" ) || ( team( "name" ) == "TEAM_FREE" ) ) &&  && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_arab") ) && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_ussr") ) && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_militia") ) )
+            visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( ( team( "name" ) == "TEAM_AXIS" ) || ( team( "name" ) == "TEAM_FREE" ) ) && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_arab") ) && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_ussr") ) && ( ! ( dvarstring( "g_TeamIcon_Axis" ) == "faction_128_militia") ) )
         }
         itemDef
         {
